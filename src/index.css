@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+.text-editor{
+    border: none !important;
+}
+
+
+
+.ql-editor {
+ padding-top: 10px !important;
+}
