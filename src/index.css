@@ -2,8 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    font: 'sans-serif';
+   
+}
 
 
+body::-webkit-scrollbar {
+    display: none;
+}
 
 
 .text-editor{
@@ -14,4 +21,15 @@
 
 .ql-editor {
  padding-top: 10px !important;
+}
+
+
+.ql-toolbar.ql-snow{
+    display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #F3F3F3;
+  border: none !important;
 }

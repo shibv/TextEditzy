@@ -30,7 +30,7 @@ function Home() {
     }
   return (
     <div className='flex justify-center items-center h-[100vh] w-full'>
-      <div className='w-[35%] h-[50%] flex flex-col gap-2 m-auto items-center bg-white  shadow-lg'>
+      <div className='w-[35%] h-[50%] rounded-lg flex flex-col gap-2 m-auto items-center bg-white  shadow-lg'>
         
         <div className='flex gap-1 items-center p-4 mt-4 '>
             <img src={logo} className='h-10 w-10' alt="" />

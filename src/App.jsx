@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import CodeEditor from './pages/CodeEditor'
 import {Toaster} from 'react-hot-toast'
 
+
 function App() {
 
 
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter >
       < Routes>
       <Route path='/' element= {<Home/> } />
+      {/* <Route path='/' element= {<Test /> } /> */}
       <Route path='/CodeEditor/:Id' element={<CodeEditor />} />
       </Routes>
       </BrowserRouter>

@@ -25,6 +25,7 @@ const getAllConntectedClients = (roomId) => {
 
 io.on("connection", (socket) => {
     socket.on("join", ({Id, name}) => {
+       
         
         userSocketMap[socket.id] = name; 
         socket.join(Id);   
@@ -40,7 +41,9 @@ io.on("connection", (socket) => {
     })
 
     socket.on("send-changes", ({roomId, delta}) => {
-        io.to(roomId).emit("receive-changes", {delta})
+        // console.log("send-changes", roomId, delta);
+        socket.to(roomId).emit("receive-changes", {delta})
+        //io.to(roomId).emit("receive-changes", {delta})
     })
 
     socket.on("disconnecting", ({Id, name, message}) => {
