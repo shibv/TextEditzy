@@ -1,7 +1,14 @@
-import express from 'express'
+import Connection from "./database/db.js";
 import { Server } from "socket.io";
+import {
+    getDocument,
+    updateDocument,
+  } from "./controller/documentController.js";
 
 const PORT = 5000
+
+Connection();
+
 const io = new Server(PORT , {
     cors :{
         origin : "http://localhost:5173",
@@ -23,28 +30,45 @@ const getAllConntectedClients = (roomId) => {
     })
 }
 
+
 io.on("connection", (socket) => {
-    socket.on("join", ({Id, name}) => {
+    
+    socket.on("join", async({Id, name}) => {
        
         
         userSocketMap[socket.id] = name; 
         socket.join(Id);   
-        const clients = getAllConntectedClients ( Id );
+        var doc = await getDocument(Id);
+        const clients =  getAllConntectedClients ( Id );
        
         clients.forEach(({socketId}) => {
             io.to(socketId).emit("joined", {
                 clients,
                 name,
-                socketId : socket.id
+                socketId : socket.id ,
+                
+            });
+        })
+        clients.forEach(({socketId}) => {
+            io.to(socketId).emit("load-document", {
+                doc
+                
             });
         })
     })
+    
+  
 
     socket.on("send-changes", ({roomId, delta}) => {
         // console.log("send-changes", roomId, delta);
         socket.to(roomId).emit("receive-changes", {delta})
         //io.to(roomId).emit("receive-changes", {delta})
     })
+
+    socket.on("save-document", async (data, roomId) => {
+    const ID = data.roomId;
+    await updateDocument(ID, data);
+  });
 
     socket.on("disconnecting", ({Id, name, message}) => {
         const rooms = Array.from(socket.rooms);
