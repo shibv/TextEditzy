@@ -11,6 +11,8 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import "quill/dist/quill.snow.css";
 import Quill from "quill";
 import QuillCursors from "quill-cursors";
+import { usePDF } from 'react-to-pdf';
+
 
 const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -41,11 +43,14 @@ function CodeEditor() {
   const [socket, setSocket] = useState();
   const [quill, setQuill] = useState();
   const [clients, setClients] = useState([]);
+ 
 
   // const socketRef = useRef(null);
   const location = useLocation();
   const { Id } = useParams();
+  const { toPDF, targetRef } = usePDF({filename: Id + '.pdf'});
 
+  // Implemented the quill server
   useEffect(() => {
     const quillServer = new Quill("#editor", {
       theme: "snow",
@@ -58,15 +63,17 @@ function CodeEditor() {
     setQuill(quillServer);
   }, []);
 
-  // setting server
+  // Make socket connection with server at port 5000
   useEffect(() => {
     const socketServer = io("http://localhost:5000");
     setSocket(socketServer);
     return () => socketServer.disconnect();
   }, []);
 
+  // Listening for JOIN events
   useEffect(() => {
     const init = () => {
+      // Joining the room for first time 
       socket &&
         socket.emit("join", {
           Id,
@@ -175,7 +182,14 @@ function CodeEditor() {
             );
           })}
         </div>
-        <div className="mt-auto flex flex-col gap-2 items-center mb-4">
+        
+        <div className="mt-auto flex flex-col gap-2 items-center mb-4 border-t-[1px] border-slate-300 ">
+        <button
+           onClick={() => toPDF()}
+            className="px-10 py-2 bg-slate-400 border-none outline-none shadow-md mt-2  font-semibold hover:bg-[#f5f5f5] rounded-lg "
+          >
+            Download PDF
+          </button>
           <button
             onClick={() => navigate("/")}
             className="px-10 py-2 bg-slate-400 border-none outline-none shadow-md mt-2  font-semibold hover:bg-[#f5f5f5] rounded-lg "
@@ -197,6 +211,7 @@ function CodeEditor() {
           socket={socket}
           roomId={Id}
           onCodeChange={() => {}}
+          targetRef = {targetRef}
         />
       </div>
     </div>

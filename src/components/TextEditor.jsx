@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function TextEditor({ socket, roomId, onCodeChange, quill }) {
+function TextEditor({ socket, roomId, onCodeChange, quill, targetRef }) {
   const handleTextChange = (delta, oldDelta, source) => {
     if (source !== "user") return;
     // sending data(changes) to server
@@ -22,17 +22,7 @@ function TextEditor({ socket, roomId, onCodeChange, quill }) {
   }, [quill, socket]);
 
 
-//   useEffect(() => {
-//     if (quill === null || socket === null) return;
 
-//     socket && socket.once('load-document', doc => {
-//       const con = doc?.data?.data;
-//         quill.setContents(con);
-    
-//     })
-
-//     socket && socket.emit('get-document', roomId);
-// },  [quill, socket]);
 
   useEffect(() => {
     if (socket == null || quill == null) return;
@@ -68,6 +58,7 @@ function TextEditor({ socket, roomId, onCodeChange, quill }) {
   return (
     <div
       id="editor"
+      ref={targetRef}
       className=" text-editor w-[50%] flex mt-4  m-auto bg-white  shadow-lg cursor-text  "
     ></div>
   );

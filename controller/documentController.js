@@ -14,3 +14,10 @@ export const getDocument = async (id) => {
 export const updateDocument = async (id, data) => {
   return await Document.findByIdAndUpdate(id, { data });
 };
+
+
+
+export const getAllDocuments = async (req, res) => {
+  const documents = await Document.find();
+  return res.status(200).json({ documents });
+}

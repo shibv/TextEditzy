@@ -1,5 +1,8 @@
 import Connection from "./database/db.js";
+import express from "express";
 import { Server } from "socket.io";
+import getDoc from './routes/getDoc.js'
+import cors from 'cors';
 import {
     getDocument,
     updateDocument,
@@ -9,12 +12,24 @@ const PORT = 5000
 
 Connection();
 
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+
+app.listen(3000, () =>{
+    console.log('Example app listening on port 3000!!')
+})
+
+// socket io
 const io = new Server(PORT , {
     cors :{
         origin : "http://localhost:5173",
         methods : ["GET","POST"]
     }
 });
+
+app.use("/api", getDoc);
 
 const userSocketMap = {};
 
