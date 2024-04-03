@@ -23,3 +23,4 @@ Navigate to the frontend folders and run install to install dependencies.
 Set up your MongoDB database and configure the database connection in the server.
 
 Run npm run dev in both the frontend and server folders to start the development server.
+[![Screenshot-2024-04-03-223951.png](https://i.postimg.cc/JnXBfcmz/Screenshot-2024-04-03-223951.png)](https://postimg.cc/S2ys89JB)
