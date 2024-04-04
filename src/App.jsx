@@ -6,6 +6,7 @@ import CodeEditor from "./pages/CodeEditor";
 import { Toaster } from "react-hot-toast";
 
 import Main from "./pages/Main";
+import CreateRoom from "./components/CreateRoom";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/Create-Room" element={<Home />} />
+          <Route path="Create-Room"  element={<CreateRoom/>}/>
+          <Route path="/Join-Room" element={<Home />} />
           <Route path="/CodeEditor/:Id" element={<CodeEditor />} />
         </Routes>
       </BrowserRouter>

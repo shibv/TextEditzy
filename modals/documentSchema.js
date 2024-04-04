@@ -9,6 +9,10 @@ const documentSchema = new mongoose.Schema({
         type: Object,
         required: true
     },
+    password :{
+        type: String,
+        required: true
+    }
   
 })
 

@@ -24,8 +24,17 @@ export const getAllDocuments = async (req, res) => {
 
 export const createRoom = async (req, res) => {
   const { roomId , password} = req.body
-
+console.log(roomId, password);
 
   const document = await Document.create({ _id: roomId, data:"", password: password });
   return res.status(200).json({ document });
+}
+
+export const joinRoom = async (req, res) => {
+  const { roomId, password } = req.body
+  const document = await Document.findById(roomId);
+  if(document.password !== password){
+    return res.status(200).json({ document: null, error: "Wrong Password" });
+  }
+  return res.status(200).json({ document });  
 }

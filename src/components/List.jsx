@@ -31,7 +31,7 @@ function List() {
                 <p
                   className="hover:scale-105 transition-all duration-500 cursor-pointer bg-slate-200 rounded-md p-2 w-[80%] text-center   "
                   onClick={() =>
-                    navigate(`/Create-Room/?roomId=${document._id}`)
+                    navigate(`/Join-Room/?roomId=${document._id}`)
                   }
                   key={document._id}
                 >
