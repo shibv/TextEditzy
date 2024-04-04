@@ -21,3 +21,11 @@ export const getAllDocuments = async (req, res) => {
   const documents = await Document.find();
   return res.status(200).json({ documents });
 }
+
+export const createRoom = async (req, res) => {
+  const { roomId , password} = req.body
+
+
+  const document = await Document.create({ _id: roomId, data:"", password: password });
+  return res.status(200).json({ document });
+}

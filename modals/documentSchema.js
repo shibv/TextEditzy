@@ -8,7 +8,8 @@ const documentSchema = new mongoose.Schema({
     data: {
         type: Object,
         required: true
-    }
+    },
+  
 })
 
 const ducument = mongoose.model("document", documentSchema);
