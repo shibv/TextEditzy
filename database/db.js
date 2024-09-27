@@ -1,7 +1,7 @@
 import mongoose  from 'mongoose';
 
 const Connection = async (username = 'usercode', password = 'codeforinterview') => {
-    const URL = `mongodb+srv://ps431352:lE88zs3LlxVWObQz@cluster0.0cpfvui.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+    const URL = process.env.MONGO_URL
 
     try {
         await mongoose.connect(URL);
